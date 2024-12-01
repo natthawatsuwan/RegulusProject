@@ -32,7 +32,7 @@ services:
       context: .
       dockerfile: ./src/client_web/docker/Dockerfile
       args:
-        - VITE_API_BACKEND_URL=reguluscloud.com
+        - VITE_API_BACKEND_URL=www.reguluscloud.com
     ports:
       - 8098:8888
   postgres:
