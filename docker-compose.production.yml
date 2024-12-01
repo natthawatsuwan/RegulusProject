@@ -80,5 +80,5 @@ services:
       dockerfile: ./nginx/docker/dockerfile
     volumes: 
       - ./nginx/production/nginx.conf:/etc/nginx/nginx.conf
-      # - ./nginx/certificates/certificate.crt:/etc/nginx/ssl/certificate.crt
-      # - ./nginx/certificates/certificate.key:/etc/nginx/ssl/certificate.key
+      - ./nginx/certificates/certificate.pem:/etc/nginx/ssl/certificate.pem
+      - ./nginx/certificates/certificate.key:/etc/nginx/ssl/certificate.key
