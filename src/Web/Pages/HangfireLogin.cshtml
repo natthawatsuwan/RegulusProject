@@ -1,0 +1,105 @@
+﻿@page
+@model HangfireLoginModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hangfire Login</title>
+    <style>
+        /* Center the panel */
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #333; /* Dark grey background */
+            font-family: Arial, sans-serif;
+        }
+
+        /* Form container styles */
+        .login-container {
+            background-color: #444;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            width: 100%;
+            color: #fff;
+            text-align: center;
+        }
+
+        h2 {
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        /* Consistent width for input fields and button */
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        button {
+            width: 100%; /* Set width to 100% to match the container */
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box; /* Ensures padding doesn’t affect the width */
+        }
+
+        /* Input field styles */
+        input[type="text"],
+        input[type="password"] {
+            border: 1px solid #666;
+            background-color: #555;
+            color: #fff;
+        }
+
+        /* Button styles */
+        button {
+            border: none;
+            background-color: #1e90ff;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: block; /* Ensures button takes full width like inputs */
+        }
+
+            button:hover {
+                background-color: #1c86ee;
+            }
+
+        /* Error message style */
+        .error {
+            color: #ff6666;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Hangfire Login</h2>
+        <form method="post" class="input-container">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required />
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required />
+
+            <button type="submit">Login</button>
+
+            @if (ViewData["Error"] != null)
+            {
+                <p class="error">@ViewData["Error"]</p>
+            }
+        </form>
+    </div>
+</body>
+</html>

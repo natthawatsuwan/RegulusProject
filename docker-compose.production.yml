@@ -1,0 +1,84 @@
+version: '3.8'
+volumes:
+  postgres_data:
+  regulus-attachments:
+  seq-data:
+  redis_data:
+services:
+  regulus-application-core:
+    hostname: regulus-application-core
+    image: regulus-application-core
+    build:
+      context: .
+      dockerfile: Dockerfile
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - TZ=Asia/Bangkok
+      - DefaultConnection=Password=UOdgKufNme9EuGu;Persist Security Info=True;User ID=elicense;Initial Catalog=regulus-db;Data Source=172.16.0.92\NSWSQLSERVER;TrustServerCertificate=True;
+      - HangfireConnection=Integrated Security=SSPI;Password=UOdgKufNme9EuGu;Persist Security Info=True;User ID=elicense;Initial Catalog=regulus-db;Data Source=172.16.0.92\NSWSQLSERVER;TrustServerCertificate=True;Trusted_Connection=false;
+    ports:
+      - "8800:8080"
+    volumes:
+      - regulus-attachments:/regulus-attachments
+
+  regulus-client-app:
+    hostname: regulus-client-app
+    image: regulus-client-app
+    build:
+      context: .
+      dockerfile: ./src/client_web/docker/Dockerfile
+      args:
+        - VITE_API_BACKEND_URL=reguluscloud.com
+    ports:
+      - 8098:8888
+  postgres:
+    image: postgres:16.4
+    container_name: postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: P@ssw0rd
+      POSTGRES_DB: regulus-db
+      TZ: Asia/Bangkok
+      PGTZ: Asia/Bangkok
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      
+  redis:
+    hostname: redis
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  seq:
+    image: datalust/seq:latest
+    hostname: seq
+    restart: always
+    environment:
+      ACCEPT_EULA: "Y"
+      SEQ_FIRSTRUN_ADMINPASSWORD: "seqP@ssw0rd"
+    ports:
+      - "5341:80"
+    volumes:
+      - seq-data:/data
+
+  nginx-regulus:
+    image: nginx:1.19.10
+    hostname: nginx-regulus
+    restart: always
+    ports:
+      - 443:443
+    build:
+      context: .
+      dockerfile: ./nginx/docker/dockerfile
+    volumes: 
+      - ./nginx/production/nginx.conf:/etc/nginx/nginx.conf
+      # - ./nginx/certificates/certificate.crt:/etc/nginx/ssl/certificate.crt
+      # - ./nginx/certificates/certificate.key:/etc/nginx/ssl/certificate.key
