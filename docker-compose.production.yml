@@ -18,8 +18,8 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - TZ=Asia/Bangkok
-      - DefaultConnection=Password=UOdgKufNme9EuGu;Persist Security Info=True;User ID=elicense;Initial Catalog=regulus-db;Data Source=172.16.0.92\NSWSQLSERVER;TrustServerCertificate=True;
-      - HangfireConnection=Integrated Security=SSPI;Password=UOdgKufNme9EuGu;Persist Security Info=True;User ID=elicense;Initial Catalog=regulus-db;Data Source=172.16.0.92\NSWSQLSERVER;TrustServerCertificate=True;Trusted_Connection=false;
+      - DefaultConnection=Host=postgres;Database=regulus-db;Username=admin;Password=P@ssw0rd;
+      - HangfireConnection=Host=postgres;Database=regulus-db;Username=admin;Password=P@ssw0rd;
     ports:
       - "8800:8080"
     volumes:
