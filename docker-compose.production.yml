@@ -74,8 +74,8 @@ services:
     hostname: nginx-regulus
     restart: always
     ports:
-      - 443:443
-      - 80:80
+      - 2021:443
+      - 2020:80
     build:
       context: .
       dockerfile: ./nginx/docker/dockerfile
