@@ -76,8 +76,6 @@ services:
     ports:
       - 443:443
       - 80:80
-      - 2020:2020
-      - 2021:2021
     build:
       context: .
       dockerfile: ./nginx/docker/dockerfile
