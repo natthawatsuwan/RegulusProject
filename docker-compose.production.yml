@@ -4,6 +4,8 @@ volumes:
   regulus-attachments:
   seq-data:
   redis_data:
+  minio_data:
+  jenkins_home:
 services:
   regulus-application-core:
     hostname: regulus-application-core
@@ -95,7 +97,7 @@ services:
     environment:
       MINIO_ROOT_USER: "admin" # Set the root user
       MINIO_ROOT_PASSWORD: "minioP@ssw0rd!" # Set the root password
-      MINIO_BROWSER_REDIRECT_URL: "https://s3console-bgjf-oversea.git.or.th/"
+      MINIO_BROWSER_REDIRECT_URL: "https://s3console.reguluscloud.com/"
     command: server /data --console-address ":9001"
   
   jenkins:
