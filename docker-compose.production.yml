@@ -5,6 +5,7 @@ volumes:
   seq-data:
   redis_data:
   minio_data:
+  minio_config:
   jenkins_home:
 services:
   regulus-application-core:
