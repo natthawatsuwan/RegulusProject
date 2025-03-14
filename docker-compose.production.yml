@@ -75,7 +75,7 @@ services:
     restart: always
     ports:
       - 443:443
-      - 80:80
+      - 80:8080
     build:
       context: .
       dockerfile: ./nginx/docker/dockerfile
